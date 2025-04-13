@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "log-analyzer"
+version = "1.0.0"
+description = "Анализатор логов Nginx с генерацией HTML-отчетов."
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8.1,<4.0"  # Минимальная версия Python
+structlog = "^23.1.0"  # Для структурированного логирования
+Jinja2 = "^3.1.2"  # Для рендеринга HTML-шаблонов
+pytest = "^7.4.0"  # Для тестирования
+pre-commit = "^3.5.0"  # Для pre-commit хуков
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.10.0"  # Форматирование кода
+flake8 = "^6.1.0"  # Линтер для Python
+isort = "^5.12.0"  # Сортировка импортов
+mypy = "^1.5.1"  # Статический анализ типов
+bandit = "^1.7.5"  # Анализ безопасности кода
+pytest-cov = "^4.1.0"  # Покрытие тестами
+
+[tool.poetry.scripts]
+log-analyzer = "log_analyzer.main:main"  # Точка входа для запуска скрипта
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88  # Максимальная длина строки
+target-version = ["py38"]  # Целевая версия Python
+
+[tool.isort]
+profile = "black"  # Совместимость с Black
+line_length = 88  # Максимальная длина строки
+
+[tool.flake8]
+max-line-length = 88  # Максимальная длина строки
+ignore = ["E203", "W503"]  # Игнорируемые правила (совместимость с Black)
+
+[tool.mypy]
+strict = true  # Строгий режим проверки типов
+disallow_untyped_defs = true  # Запрет неаннотированных функций
