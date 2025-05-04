@@ -1,8 +1,15 @@
 import logging
+from pathlib import Path
+
 from log_analyzer.config import load_config
-from log_analyzer.utils import setup_logging
 from log_analyzer.log_parser import find_latest_log, parse_log
-from log_analyzer.report_generator import collect_statistics, generate_report
+from log_analyzer.report_generator import (
+    collect_statistics,
+    generate_report,
+    is_report_exists,
+)
+from log_analyzer.utils import setup_logging
+
 
 def main():
     # Загрузка конфигурации
@@ -20,6 +27,11 @@ def main():
         logging.error(e)
         return
 
+    # Проверка отчета к последнему логу
+    if is_report_exists(config["REPORT_DIR"], latest_log.date.strftime("%Y.%m.%d")):
+        logging.info("Report already exists, skipping processing")
+        return
+
     # Парсинг логов
     parsed_logs = list(parse_log(latest_log))
 
@@ -28,8 +40,9 @@ def main():
 
     # Генерация отчета
     report_date = latest_log.date.strftime("%Y.%m.%d")
-    report_path = Path(config["REPORT_DIR"]) / f"report-{report_date}.html"
+    report_path = Path(config["REPORT_DIR"])
     generate_report(stats, report_date, report_path, config["REPORT_SIZE"])
+
 
 if __name__ == "__main__":
     main()

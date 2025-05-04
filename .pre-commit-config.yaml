@@ -1,67 +1,67 @@
 repos:
-  # 1. Black — форматирование Python-кода
-  - repo: https://github.com/psf/black
-    rev: 23.10.0  # Укажите последнюю стабильную версию
-    hooks:
-      - id: black
-        args: [--line-length=88]  # Опционально: настройка длины строки
+  # # 1. Black — форматирование Python-кода
+  # - repo: https://github.com/psf/black
+  #   rev: 23.10.0
+  #   hooks:
+  #     - id: black
+  #       args: [--line-length=88]  # Опционально: настройка длины строки
 
-  # 2. Flake8 — линтер для Python
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0  # Укажите последнюю стабильную версию
-    hooks:
-      - id: flake8
-        args: [--max-line-length=88]  # Согласовано с Black
+  # # 2. Flake8 — линтер для Python
+  # - repo: https://github.com/pycqa/flake8
+  #   rev: 6.1.0
+  #   hooks:
+  #     - id: flake8
+  #       args: [--max-line-length=88]  # Согласовано с Black
 
   # 3. isort — сортировка импортов
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0  # Укажите последнюю стабильную версию
+    rev: 5.12.0
     hooks:
       - id: isort
         args: [--profile=black]  # Согласовано с Black
 
-  # 4. Prettier — форматирование HTML, CSS, JS
-  - repo: https://github.com/prettier/prettier
-    rev: 3.0.3  # Укажите последнюю стабильную версию
-    hooks:
-      - id: prettier
-        args: [--write, --prose-wrap=always]
+  # # 4. Prettier — форматирование HTML, CSS, JS
+  # - repo: https://github.com/prettier/prettier
+  #   rev: 3.0.3
+  #   hooks:
+  #     - id: prettier
+  #       args: [--write, --prose-wrap=always]
 
-  # 5. Trailing Whitespace — удаление лишних пробелов в конце строк
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0  # Укажите последнюю стабильную версию
-    hooks:
-      - id: trailing-whitespace
+  # # 5. Trailing Whitespace — удаление лишних пробелов в конце строк
+  # - repo: https://github.com/pre-commit/pre-commit-hooks
+  #   rev: v4.5.0
+  #   hooks:
+  #     - id: trailing-whitespace
 
-  # 6. End-of-file-fixer — добавление пустой строки в конец файла
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
-      - id: end-of-file-fixer
+  # # 6. End-of-file-fixer — добавление пустой строки в конец файла
+  # - repo: https://github.com/pre-commit/pre-commit-hooks
+  #   rev: v4.5.0
+  #   hooks:
+  #     - id: end-of-file-fixer
 
-  # 7. Check YAML — проверка корректности YAML-файлов
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
-      - id: check-yaml
+  # # 7. Check YAML — проверка корректности YAML-файлов
+  # - repo: https://github.com/pre-commit/pre-commit-hooks
+  #   rev: v4.5.0
+  #   hooks:
+  #     - id: check-yaml
 
-  # 8. Detect secrets — поиск чувствительных данных (например, паролей)
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0  # Укажите последнюю стабильную версию
-    hooks:
-      - id: detect-secrets
-        args: [--baseline=.secrets.baseline]
+  # # 8. Detect secrets — поиск чувствительных данных (например, паролей)
+  # - repo: https://github.com/Yelp/detect-secrets
+  #   rev: v1.4.0
+  #   hooks:
+  #     - id: detect-secrets
+  #       args: [--baseline=.secrets.baseline]
 
-  # 9. Bandit — анализ безопасности Python-кода
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.5  # Укажите последнюю стабильную версию
-    hooks:
-      - id: bandit
-        args: [--skip=B101,B603]  # Исключение определенных правил (по необходимости)
+  # # 9. Bandit — анализ безопасности Python-кода
+  # - repo: https://github.com/PyCQA/bandit
+  #   rev: 1.7.5
+  #   hooks:
+  #     - id: bandit
+  #       args: [--skip=B101,B603]  # Исключение определенных правил (по необходимости)
 
-  # 10. MyPy — статический анализ типов
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1  # Укажите последнюю стабильную версию
-    hooks:
-      - id: mypy
-        args: [--ignore-missing-imports]
+  # # 10. MyPy — статический анализ типов
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.5.1
+  #   hooks:
+  #     - id: mypy
+  #       args: [--ignore-missing-imports]

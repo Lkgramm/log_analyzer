@@ -2,6 +2,7 @@ import logging
 import sys
 from pathlib import Path
 
+
 def setup_logging(log_file=None, level=logging.INFO):
     """
     Настройка системы логирования.
@@ -19,7 +20,9 @@ def setup_logging(log_file=None, level=logging.INFO):
     # Логирование в файл (если указан)
     if log_file:
         log_file = Path(log_file)
-        log_file.parent.mkdir(parents=True, exist_ok=True)  # Создаем директорию, если её нет
+        log_file.parent.mkdir(
+            parents=True, exist_ok=True
+        )  # Создаем директорию, если её нет
         file_handler = logging.FileHandler(log_file, encoding="utf-8")
         file_handler.setFormatter(formatter)
         handlers.append(file_handler)

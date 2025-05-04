@@ -2,7 +2,7 @@
 name = "log-analyzer"
 version = "1.0.0"
 description = "Анализатор логов Nginx с генерацией HTML-отчетов."
-authors = ["Your Name <your.email@example.com>"]
+authors = ["Aleksei Ivanovskii <bscadet@yandex.ru>"]
 license = "MIT"
 readme = "README.md"
 

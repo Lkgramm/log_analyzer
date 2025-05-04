@@ -1,7 +1,9 @@
-from log_analyzer.log_parser import parse_log
 from collections import namedtuple
 
+from log_analyzer.log_parser import parse_log
+
 LogFile = namedtuple("LogFile", ["path", "date", "extension"])
+
 
 def test_parse_log(temp_log_file):
     """Тестирование парсинга строк логов."""

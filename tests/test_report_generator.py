@@ -1,6 +1,8 @@
-from log_analyzer.report_generator import collect_statistics, generate_report
-from collections import defaultdict
 import os
+from collections import defaultdict
+
+from log_analyzer.report_generator import collect_statistics, generate_report
+
 
 def test_collect_statistics():
     """Тестирование сбора статистики."""
@@ -24,6 +26,7 @@ def test_collect_statistics():
     assert round(data["time_avg"], 3) == 0.456
     assert round(data["time_max"], 3) == 0.789
     assert round(data["time_med"], 3) == 0.456
+
 
 def test_generate_report(tmpdir):
     """Тестирование генерации отчета."""

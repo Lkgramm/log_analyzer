@@ -1,15 +1,13 @@
 import json
-from log_analyzer.main import main
+
 from log_analyzer.config import load_config
+from log_analyzer.main import main
+
 
 def test_main_with_log_file(tmpdir):
     # Создание временного конфига
     config_path = tmpdir / "config.json"
-    config = {
-        "REPORT_SIZE": 10,
-        "REPORT_DIR": str(tmpdir),
-        "LOG_DIR": str(tmpdir)
-    }
+    config = {"REPORT_SIZE": 10, "REPORT_DIR": str(tmpdir), "LOG_DIR": str(tmpdir)}
     with open(config_path, "w") as f:
         json.dump(config, f)
 

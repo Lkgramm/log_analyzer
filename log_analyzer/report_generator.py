@@ -1,14 +1,17 @@
 import json
-import structlog
 import os
-from statistics import median
 from collections import defaultdict
+from statistics import median
 from string import Template
 from typing import Generator, Tuple
 
+import structlog
+
 
 def collect_statistics(parsed_log: Generator[Tuple[str, float], None, None]) -> dict:
-    stats = defaultdict(lambda: {"count": 0, "time_sum": 0, "time_max": 0, "time_list": []})
+    stats = defaultdict(
+        lambda: {"count": 0, "time_sum": 0, "time_max": 0, "time_list": []}
+    )
     total_count = 0
     total_time = 0
     parsing_errors = 0
@@ -42,9 +45,21 @@ def collect_statistics(parsed_log: Generator[Tuple[str, float], None, None]) -> 
 
     return stats, total_count, total_time, parsing_errors
 
-def generate_report(stats: dict, report_date: str, report_dir: str, report_size: int) -> None:
+
+def generate_report(
+    stats: dict, report_date: str, report_dir: str, report_size: int
+) -> None:
+    """
+    Генерирует HTML-отчет на основе статистики.
+    :param stats: Словарь с данными о URL'ах.
+    :param report_date: Дата отчета в формате YYYY.MM.DD.
+    :param report_dir: Путь к директории для сохранения отчета.
+    :param report_size: Максимальное количество URL'ов в отчете.
+    """
     # Сортируем URL'ы по time_sum
-    sorted_urls = sorted(stats.items(), key=lambda x: x[1]["time_sum"], reverse=True)[:report_size]
+    sorted_urls = sorted(stats.items(), key=lambda x: x[1]["time_sum"], reverse=True)[
+        :report_size
+    ]
 
     # Формируем данные для таблицы
     table_json = [
@@ -62,13 +77,38 @@ def generate_report(stats: dict, report_date: str, report_dir: str, report_size:
     ]
 
     # Читаем шаблон
-    with open("templates/report.html", "r", encoding="utf-8") as f:
+    template_path = "templates/report.html"
+    if not os.path.exists(template_path):
+        raise FileNotFoundError(f"Template file not found: {template_path}")
+
+    with open(template_path, "r", encoding="utf-8") as f:
         template = Template(f.read())
 
     # Подставляем данные в $table_json
     report_content = template.safe_substitute(table_json=json.dumps(table_json))
 
+    # Убедимся, что директория для отчетов существует
+    os.makedirs(report_dir, exist_ok=True)
+
+    # Имя файла отчета
+    report_file_name = f"report-{report_date}.html"
+
+    # Полный путь к файлу
+    report_path = os.path.join(report_dir, report_file_name)
+
     # Сохраняем отчет
-    report_path = os.path.join(report_dir, f"report-{report_date}.html")
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(report_content)
+
+    print(f"Report saved to: {report_path}")
+
+
+def is_report_exists(report_dir: str, report_date: str) -> bool:
+    """
+    Проверяет, существует ли отчет для указанной даты.
+    :param report_dir: Директория с отчетами.
+    :param report_date: Дата лога в формате YYYY.MM.DD.
+    :return: True, если отчет существует, иначе False.
+    """
+    report_file_name = f"report-{report_date}.html"
+    return os.path.exists(os.path.join(report_dir, report_file_name))
