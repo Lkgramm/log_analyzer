@@ -47,7 +47,7 @@ poetry.lock
 poetry.toml
 
 # Reports and logs directory
-/reports/
+# /reports/
 /logs/
 
 # Static files (tablesorter)
